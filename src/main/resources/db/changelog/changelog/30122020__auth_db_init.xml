@@ -111,4 +111,12 @@
         </sql>
     </changeSet>
 
+    <changeSet id="init-7" author="molostvov">
+        <sql>
+            INSERT INTO users(
+            username, password, email, surname, name, enabled)
+            VALUES ('admin', '$2a$10$TH//YDovv7arAe5boNapd.M5BMcfTsuydAf..qOjgtLV6Q3DTl7XK','email','surname','name',true);
+        </sql>
+    </changeSet>
+
 </databaseChangeLog>
