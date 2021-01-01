@@ -1,0 +1,26 @@
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/auth
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+  liquibase:
+    change-log: classpath:/db/changelog/changelog-master.xml
+
+security:
+    jwt:
+      key-store: classpath:/keystore/auth_server.keystore
+      key-store-password: 123456789
+      key-pair-alias: auth_server_keystore
+      key-pair-password: 123456789
+
+server:
+  servlet:
+    context-path: /auth
+
+logging:
+  level:
+    root: DEBUG

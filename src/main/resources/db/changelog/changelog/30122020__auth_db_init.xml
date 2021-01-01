@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet id="init-1" author="molostvov">
+        <comment>Создание схемы базы данных example</comment>
+        <sql>
+            create schema if not exists public;
+        </sql>
+    </changeSet>
+
+    <changeSet id="init-2" author="molostvov">
+        <sql>
+            CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+        </sql>
+    </changeSet>
+
+    <changeSet id="init-3" author="molostvov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists schemaName="public" tableName="users"/>
+            </not>
+        </preConditions>
+        <createTable schemaName="public" tableName="users">
+            <column name="id" type="uuid" defaultValue="uuid_generate_v4()"/>
+            <column name="username" type="varchar"/>
+            <column name="password" type="varchar"/>
+            <column name="email" type="varchar"/>
+            <column name="surname" type="varchar"/>
+            <column name="name" type="varchar"/>
+            <column name="enabled" type="boolean"/>
+        </createTable>
+        <addPrimaryKey schemaName="public" tableName="users" columnNames="id"/>
+        <addNotNullConstraint schemaName="public" tableName="users" columnName="id"/>
+        <addNotNullConstraint schemaName="public" tableName="users" columnName="username"/>
+        <addNotNullConstraint schemaName="public" tableName="users" columnName="password"/>
+        <addNotNullConstraint schemaName="public" tableName="users" columnName="email"/>
+        <addUniqueConstraint schemaName="public" tableName="users" columnNames="username"/>
+        <addUniqueConstraint schemaName="public" tableName="users" columnNames="email"/>
+    </changeSet>
+
+    <changeSet id="init-4" author="molostvov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists schemaName="public" tableName="authorities"/>
+            </not>
+        </preConditions>
+        <createTable schemaName="public" tableName="authorities">
+            <column name="user_id" type="uuid"/>
+            <column name="authority" type="varchar"/>
+        </createTable>
+        <addNotNullConstraint schemaName="public" tableName="authorities" columnName="user_id"/>
+        <addNotNullConstraint schemaName="public" tableName="authorities" columnName="authority"/>
+        <addPrimaryKey schemaName="public" tableName="authorities" columnNames="user_id,authority"/>
+        <addForeignKeyConstraint baseTableSchemaName="public" baseTableName="authorities" baseColumnNames="user_id" constraintName="authorities_user_id_fk"
+                                 referencedTableSchemaName="public" referencedTableName="users" referencedColumnNames="id"/>
+    </changeSet>
+
+    <changeSet id="init-5" author="molostvov">
+        <sql>
+            create table oauth_client_details (
+            client_id VARCHAR(255) PRIMARY KEY,
+            resource_ids VARCHAR(255),
+            client_secret VARCHAR(255),
+            scope VARCHAR(255),
+            authorized_grant_types VARCHAR(255),
+            web_server_redirect_uri VARCHAR(255),
+            authorities VARCHAR(255),
+            access_token_validity INTEGER,
+            refresh_token_validity INTEGER,
+            additional_information VARCHAR(4096),
+            autoapprove VARCHAR(255)
+            );
+
+            create table if not exists oauth_client_token (
+            token_id VARCHAR(255),
+            token BYTEA,
+            authentication_id VARCHAR(255) PRIMARY KEY,
+            user_name VARCHAR(255),
+            client_id VARCHAR(255)
+            );
+
+            create table if not exists oauth_code (
+            code VARCHAR(255), authentication BYTEA
+            );
+
+            create table if not exists oauth_approvals (
+            userId VARCHAR(255),
+            clientId VARCHAR(255),
+            scope VARCHAR(255),
+            status VARCHAR(10),
+            expiresAt TIMESTAMP,
+            lastModifiedAt TIMESTAMP
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet id="init-6" author="molostvov">
+        <sql>
+            INSERT INTO oauth_client_details
+            (client_id, client_secret, scope, authorized_grant_types,
+            web_server_redirect_uri, authorities, access_token_validity,
+            refresh_token_validity, additional_information, autoapprove)
+            VALUES
+            ('web-client', '80d002c3-9bb0-4367-b6b8-ddca72bd9dc1', 'user_info',
+            'authorization_code', null, null, 36000, 36000, null, true);
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>
