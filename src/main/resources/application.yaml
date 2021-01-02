@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:postgresql://ec2-34-253-148-186.eu-west-1.compute.amazonaws.com:5432/d1121m2o35udsd
-    username: rsqnlqdlizqfvm
-    password: 6a394119f98410cb9f9c97d360ff442f04d97c683cf8a9210f4a7d7f54b73d0f
+    url: jdbc:postgresql://localhost:5432/auth
+    username: postgres
+    password: postgres
     driver-class-name: org.postgresql.Driver
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
@@ -15,6 +15,7 @@ spring:
           google:
             client-id: 796214187309-kpall1h7m0hr6elmo492p31kqcgc4mvr.apps.googleusercontent.com
             client-secret: lUUZeTMrePv5rm7AcgKlmAVu
+            redirect-uri: http://localhost:8080/auth/login/oauth2/code/google
 security:
   jwt:
     key-store: classpath:/keystore/auth_server.keystore
@@ -29,3 +30,10 @@ server:
 logging:
   level:
     root: DEBUG
+custom:
+  cors:
+    allowOrigin: http://localhost:8081
+    allowMethods: GET, POST, PUT, OPTIONS
+    allowHeaders: Content-Type
+    allowCredentials: true
+    maxAge: 3600
