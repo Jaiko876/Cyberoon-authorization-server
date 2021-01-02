@@ -1,4 +1,4 @@
-package net.pet.auth_server.service.model;
+package net.pet.auth_server.domain.entity;
 
 import lombok.Getter;
 import lombok.Setter;

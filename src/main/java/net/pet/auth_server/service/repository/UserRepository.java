@@ -1,6 +1,6 @@
 package net.pet.auth_server.service.repository;
 
-import net.pet.auth_server.service.model.User;
+import net.pet.auth_server.domain.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

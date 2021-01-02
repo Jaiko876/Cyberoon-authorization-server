@@ -1,4 +1,4 @@
-package net.pet.auth_server.service.model;
+package net.pet.auth_server.domain.entity;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -17,6 +17,7 @@ import java.util.UUID;
 public class User implements UserDetails {
 
     @Id
+    @Column(name = "id", unique = true, nullable = false)
     private UUID id;
 
     @Column(name = "username", unique = true, nullable = false)
