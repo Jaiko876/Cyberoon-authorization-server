@@ -107,7 +107,7 @@
             refresh_token_validity, additional_information, autoapprove)
             VALUES
             ('web-client', '80d002c3-9bb0-4367-b6b8-ddca72bd9dc1', 'user_info',
-            'authorization_code', 'http://locahost:8081/', null, 36000, 36000, null, true);
+            'authorization_code', 'http://localhost:8081/login/oauth2/code/web-client', null, 36000, 36000, null, true);
         </sql>
     </changeSet>
 
