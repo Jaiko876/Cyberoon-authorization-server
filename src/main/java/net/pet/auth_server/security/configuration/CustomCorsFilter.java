@@ -3,6 +3,7 @@ package net.pet.auth_server.security.configuration;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -36,11 +37,15 @@ public class CustomCorsFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
 
         response.addHeader("Access-Control-Allow-Origin", allowOrigin);
-        response.addHeader("Access-Control-Allow-Headers", allowHeaders);
-        response.addHeader("Access-Control-Allow-Methods", allowMethods);
-        response.addHeader("Access-Control-Allow-Credentials", allowCredentials);
-        response.addHeader("Access-Control-Max-Age", maxAge);
-        response.addHeader("Access-Control-Expose-Headers", "Authorization");
-        filterChain.doFilter(request, response);
+
+        if (HttpMethod.OPTIONS.matches(request.getMethod())) {
+            response.addHeader("Access-Control-Allow-Methods", allowMethods);
+            response.addHeader("Access-Control-Allow-Credentials", allowCredentials);
+            response.addHeader("Access-Control-Max-Age", maxAge);
+            response.addHeader("Access-Control-Allow-Headers", allowHeaders);
+            response.setStatus(HttpServletResponse.SC_OK);
+        } else {
+            filterChain.doFilter(request, response);
+        }
     }
 }
