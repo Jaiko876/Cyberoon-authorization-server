@@ -36,3 +36,16 @@ custom:
     allowHeaders: Content-Type
     allowCredentials: true
     maxAge: 3600
+
+server-url: http://my-test-auth-server.herokuapp.com/auth
+
+openid-configuration:
+  authorization_endpoint: ${server-url}/oauth/authorize
+  end_session_endpoint: ${server-url}/logout
+  grant_types_supported: authorization_code
+  issuer: ${server-url}
+  token_endpoint: ${server-url}/oauth/token
+  userinfo_endpoint: ${server-url}/userinfo
+  jwks_uri: ${server-url}/.well-known/jwks.json
+
+

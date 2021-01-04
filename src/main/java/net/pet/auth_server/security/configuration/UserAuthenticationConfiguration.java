@@ -21,18 +21,20 @@ public class UserAuthenticationConfiguration extends WebSecurityConfigurerAdapte
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+                .csrf().ignoringAntMatchers("/logout/**")
+                .and()
                 .requestMatchers()
                 .mvcMatchers("/login/**", "/oauth/**", "/oauth2/**")
                 .and()
                 .authorizeRequests()
                 .anyRequest()
                 .authenticated()
-                .and().formLogin()
                 .and()
-                .oauth2Login().successHandler(oauth2AuthenticationSuccessHandler)
-                .and().logout().invalidateHttpSession(true)
+                .formLogin().permitAll().and().logout().invalidateHttpSession(true)
                 .clearAuthentication(true).deleteCookies("JSESSIONID")
-                .permitAll().and().csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
+                .and().csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+                .and()
+                .oauth2Login().successHandler(oauth2AuthenticationSuccessHandler);
     }
 
     @Override
