@@ -12,6 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 @Component
 @Order(Ordered.HIGHEST_PRECEDENCE + 1)
@@ -24,7 +25,7 @@ public class CustomCorsFilter extends OncePerRequestFilter {
     private String allowMethods;
 
     @Value("${custom.cors.allowHeaders}")
-    private String allowHeaders;
+    private List<String> allowHeaders;
 
     @Value("${custom.cors.allowCredentials}")
     private String allowCredentials;
@@ -37,10 +38,11 @@ public class CustomCorsFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
 
         response.addHeader("Access-Control-Allow-Origin", allowOrigin);
-
+        for (String header: allowHeaders) {
+            response.addHeader("Access-Control-Allow-Headers", header);
+        }
         if (HttpMethod.OPTIONS.matches(request.getMethod())) {
             response.addHeader("Access-Control-Allow-Methods", allowMethods);
-            response.addHeader("Access-Control-Allow-Headers", allowHeaders);
             response.addHeader("Access-Control-Allow-Credentials", allowCredentials);
             response.addHeader("Access-Control-Max-Age", maxAge);
             response.setStatus(HttpServletResponse.SC_OK);
