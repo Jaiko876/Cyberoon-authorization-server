@@ -18,12 +18,9 @@ public class UserAuthenticationConfiguration extends WebSecurityConfigurerAdapte
     @Autowired
     private Oauth2AuthenticationSuccessHandler oauth2AuthenticationSuccessHandler;
 
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .csrf().csrfTokenRepository(csrfTokenRepository())
-                .and()
                 .requestMatchers()
                 .mvcMatchers("/login/**", "/oauth/**", "/oauth2/**")
                 .and()
@@ -33,7 +30,9 @@ public class UserAuthenticationConfiguration extends WebSecurityConfigurerAdapte
                 .and().formLogin()
                 .and()
                 .oauth2Login().successHandler(oauth2AuthenticationSuccessHandler)
-                .and().logout();
+                .and().logout().invalidateHttpSession(true)
+                .clearAuthentication(true).logoutSuccessUrl("/login?logout").deleteCookies("JSESSIONID")
+                .permitAll().and().csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
     }
 
     @Override
