@@ -21,6 +21,8 @@ public class UserAuthenticationConfiguration extends WebSecurityConfigurerAdapte
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+                .headers().frameOptions().sameOrigin()
+                .and()
                 .csrf().ignoringAntMatchers("/logout/**")
                 .and()
                 .requestMatchers()
