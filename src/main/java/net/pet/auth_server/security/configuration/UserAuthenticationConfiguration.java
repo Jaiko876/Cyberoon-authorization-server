@@ -31,7 +31,7 @@ public class UserAuthenticationConfiguration extends WebSecurityConfigurerAdapte
                 .and()
                 .oauth2Login().successHandler(oauth2AuthenticationSuccessHandler)
                 .and().logout().invalidateHttpSession(true)
-                .clearAuthentication(true).logoutSuccessUrl("/login?logout").deleteCookies("JSESSIONID")
+                .clearAuthentication(true).deleteCookies("JSESSIONID")
                 .permitAll().and().csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
     }
 
