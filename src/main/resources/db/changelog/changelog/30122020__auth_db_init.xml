@@ -106,7 +106,7 @@
             web_server_redirect_uri, authorities, access_token_validity,
             refresh_token_validity, additional_information, autoapprove)
             VALUES
-            ('web-client', '$2a$10$/0wwZVQqCWZKva6bC6AKO.FUJh1RoXFueDY9q4y0CS60FTfASc/Dm', 'user_info',
+            ('web-client', '$2a$10$/0wwZVQqCWZKva6bC6AKO.FUJh1RoXFueDY9q4y0CS60FTfASc/Dm', 'openid',
             'authorization_code', 'http://localhost:8081/', null, 36000, 36000, null, true);
         </sql>
     </changeSet>
