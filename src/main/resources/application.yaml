@@ -33,7 +33,7 @@ custom:
   cors:
     allowOrigin: http://localhost:8081
     allowMethods: GET, POST, PUT, OPTIONS
-    allowHeaders: Content-Type, Access-Control-Allow-Headers
+    allowHeaders: Content-Type, Access-Control-Allow-Headers, Access-Control-Request-Headers
     allowCredentials: true
     maxAge: 3600
 
