@@ -32,7 +32,8 @@ public class UserAuthenticationConfiguration extends WebSecurityConfigurerAdapte
                 .authenticated()
                 .and().formLogin()
                 .and()
-                .oauth2Login().successHandler(oauth2AuthenticationSuccessHandler);
+                .oauth2Login().successHandler(oauth2AuthenticationSuccessHandler)
+                .and().logout();
     }
 
     @Override
