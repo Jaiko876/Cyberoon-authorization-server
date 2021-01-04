@@ -1,4 +1,4 @@
-package net.pet.auth_server.security;
+package net.pet.auth_server.service;
 
 import net.pet.auth_server.service.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

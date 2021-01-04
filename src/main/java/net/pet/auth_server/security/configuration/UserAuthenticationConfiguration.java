@@ -9,6 +9,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.security.web.csrf.CsrfTokenRepository;
 
 @Configuration
 @Order(1)
@@ -20,6 +22,8 @@ public class UserAuthenticationConfiguration extends WebSecurityConfigurerAdapte
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+                .csrf().csrfTokenRepository(csrfTokenRepository())
+                .and()
                 .requestMatchers()
                 .mvcMatchers("/login/**", "/oauth/**", "/oauth2/**")
                 .and()
@@ -28,8 +32,7 @@ public class UserAuthenticationConfiguration extends WebSecurityConfigurerAdapte
                 .authenticated()
                 .and().formLogin()
                 .and()
-                .oauth2Login()
-                .successHandler(oauth2AuthenticationSuccessHandler);
+                .oauth2Login().successHandler(oauth2AuthenticationSuccessHandler);
     }
 
     @Override
@@ -43,5 +46,8 @@ public class UserAuthenticationConfiguration extends WebSecurityConfigurerAdapte
         return new BCryptPasswordEncoder();
     }
 
-
+    @Bean
+    public CsrfTokenRepository csrfTokenRepository() {
+        return new CookieCsrfTokenRepository();
+    }
 }
