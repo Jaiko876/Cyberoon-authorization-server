@@ -40,6 +40,7 @@ public class CustomCorsFilter extends OncePerRequestFilter {
         response.addHeader("Access-Control-Allow-Methods", allowMethods);
         response.addHeader("Access-Control-Allow-Credentials", allowCredentials);
         response.addHeader("Access-Control-Max-Age", maxAge);
+        response.addHeader("Access-Control-Expose-Headers", "Authorization");
         filterChain.doFilter(request, response);
     }
 }
