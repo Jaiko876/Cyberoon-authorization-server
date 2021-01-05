@@ -17,6 +17,4 @@ public class  OpenIdConfiguration {
     private String token_endpoint;
     private String userinfo_endpoint;
     private String jwks_uri;
-    private String check_session_iframe;
-    private String revocation_endpoint;
 }
