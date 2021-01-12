@@ -7,9 +7,9 @@
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
 
     <changeSet id="init-1" author="molostvov">
-        <comment>Создание схемы базы данных example</comment>
+        <comment>Создание базы данных auth</comment>
         <sql>
-            create schema if not exists public;
+            CREATE DATABASE IF NOT EXISTS auth;
         </sql>
     </changeSet>
 
@@ -25,22 +25,19 @@
                 <tableExists schemaName="public" tableName="users"/>
             </not>
         </preConditions>
-        <createTable schemaName="public" tableName="users">
-            <column name="id" type="uuid" defaultValue="uuid_generate_v4()"/>
-            <column name="username" type="varchar"/>
-            <column name="password" type="varchar"/>
-            <column name="email" type="varchar"/>
-            <column name="surname" type="varchar"/>
-            <column name="name" type="varchar"/>
-            <column name="enabled" type="boolean"/>
-        </createTable>
-        <addPrimaryKey schemaName="public" tableName="users" columnNames="id"/>
-        <addNotNullConstraint schemaName="public" tableName="users" columnName="id"/>
-        <addNotNullConstraint schemaName="public" tableName="users" columnName="username"/>
-        <addNotNullConstraint schemaName="public" tableName="users" columnName="password"/>
-        <addNotNullConstraint schemaName="public" tableName="users" columnName="email"/>
-        <addUniqueConstraint schemaName="public" tableName="users" columnNames="username"/>
-        <addUniqueConstraint schemaName="public" tableName="users" columnNames="email"/>
+        <sql>
+            CREATE TABLE user (
+            id                  uuid not null default uuid_generate_v4(),
+            username            varchar not null,
+            email               varchar not null,
+            surname             varchar,
+            name                varchar,
+
+            CONSTRAINT user_pk PRIMARY KEY (id),
+            CONSTRAINT user_unq_username UNIQUE (username),
+            CONSTRAINT user_unq_email UNIQUE (email),
+            );
+        </sql>
     </changeSet>
 
     <changeSet id="init-4" author="molostvov">
@@ -48,16 +45,17 @@
             <not>
                 <tableExists schemaName="public" tableName="authorities"/>
             </not>
+            <tableExists tableName="users" schemaName="public"/>
         </preConditions>
-        <createTable schemaName="public" tableName="authorities">
-            <column name="user_id" type="uuid"/>
-            <column name="authority" type="varchar"/>
-        </createTable>
-        <addNotNullConstraint schemaName="public" tableName="authorities" columnName="user_id"/>
-        <addNotNullConstraint schemaName="public" tableName="authorities" columnName="authority"/>
-        <addPrimaryKey schemaName="public" tableName="authorities" columnNames="user_id,authority"/>
-        <addForeignKeyConstraint baseTableSchemaName="public" baseTableName="authorities" baseColumnNames="user_id" constraintName="authorities_user_id_fk"
-                                 referencedTableSchemaName="public" referencedTableName="users" referencedColumnNames="id"/>
+        <sql>
+            CREATE TABLE authorities (
+            user_id            varchar not null,
+            authority          varchar not null,
+
+            CONSTRAINT authorities_pk PRIMARY KEY (user_id, authority),
+            CONSTRAINT authorities_fk FOREIGN KEY (user_id) REFERENCES users(id)
+            );
+        </sql>
     </changeSet>
 
     <changeSet id="init-5" author="molostvov">
@@ -74,27 +72,6 @@
             refresh_token_validity INTEGER,
             additional_information VARCHAR(4096),
             autoapprove VARCHAR(255)
-            );
-
-            create table if not exists oauth_client_token (
-            token_id VARCHAR(255),
-            token BYTEA,
-            authentication_id VARCHAR(255) PRIMARY KEY,
-            user_name VARCHAR(255),
-            client_id VARCHAR(255)
-            );
-
-            create table if not exists oauth_code (
-            code VARCHAR(255), authentication BYTEA
-            );
-
-            create table if not exists oauth_approvals (
-            userId VARCHAR(255),
-            clientId VARCHAR(255),
-            scope VARCHAR(255),
-            status VARCHAR(10),
-            expiresAt TIMESTAMP,
-            lastModifiedAt TIMESTAMP
             );
         </sql>
     </changeSet>

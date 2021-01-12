@@ -13,6 +13,7 @@ import java.util.Map;
 
 @FrameworkEndpoint
 public class WellKnownEndpoint {
+
     @Autowired
     private OpenIdConfiguration openIdConfiguration;
 

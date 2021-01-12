@@ -1,6 +1,5 @@
-package net.pet.auth_server.security.configuration.pkce;
+package net.pet.auth_server.security.pkce;
 
-import net.pet.auth_server.domain.enumerated.CodeChallengeMethod;
 import org.springframework.security.oauth2.common.exceptions.InvalidGrantException;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 

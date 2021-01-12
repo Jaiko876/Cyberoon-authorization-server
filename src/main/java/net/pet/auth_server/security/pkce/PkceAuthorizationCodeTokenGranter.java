@@ -1,4 +1,4 @@
-package net.pet.auth_server.security.configuration.pkce;
+package net.pet.auth_server.security.pkce;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.common.exceptions.InvalidClientException;

@@ -1,4 +1,4 @@
-package net.pet.auth_server.domain.enumerated;
+package net.pet.auth_server.security.pkce;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;

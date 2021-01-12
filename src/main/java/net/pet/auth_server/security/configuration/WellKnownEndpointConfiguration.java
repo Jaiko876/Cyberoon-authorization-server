@@ -5,7 +5,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerSecurityConfiguration;
 
 @Configuration
-public class JwkSetEndpointConfiguration extends AuthorizationServerSecurityConfiguration {
+public class WellKnownEndpointConfiguration extends AuthorizationServerSecurityConfiguration {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {

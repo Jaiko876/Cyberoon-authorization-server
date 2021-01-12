@@ -1,8 +1,8 @@
 package net.pet.auth_server.security.configuration;
 
-import net.pet.auth_server.security.configuration.pkce.PkceAuthorizationCodeServices;
-import net.pet.auth_server.security.configuration.pkce.PkceAuthorizationCodeTokenGranter;
 import net.pet.auth_server.security.configuration.well_known.OpenIdConfiguration;
+import net.pet.auth_server.security.pkce.PkceAuthorizationCodeServices;
+import net.pet.auth_server.security.pkce.PkceAuthorizationCodeTokenGranter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -31,8 +31,6 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
-import org.springframework.security.web.DefaultRedirectStrategy;
-import org.springframework.security.web.RedirectStrategy;
 
 import javax.sql.DataSource;
 import java.security.KeyPair;
@@ -93,11 +91,6 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     public KeyPair keyPair() {
         SecurityProperties.JwtProperties jwtProperties = securityProperties.getJwt();
         return obtainKeyPair(jwtProperties, keyStoreKeyFactory(jwtProperties));
-    }
-
-    @Bean
-    public RedirectStrategy redirectStrategy() {
-        return new DefaultRedirectStrategy();
     }
 
     @Bean

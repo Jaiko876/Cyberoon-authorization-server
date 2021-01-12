@@ -35,9 +35,6 @@ public class User implements UserDetails {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "enabled")
-    private Boolean enabled;
-
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private List<Authority> authorities;
@@ -74,6 +71,6 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return enabled;
+        return true;
     }
 }
