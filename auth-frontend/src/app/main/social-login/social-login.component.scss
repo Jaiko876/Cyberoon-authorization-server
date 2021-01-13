@@ -1,0 +1,14 @@
+@use "sass:color";
+.google-button {
+  background-color: #fff;
+  color: black;
+  border: 2px solid black;
+
+  &:hover {
+    background-color: color.scale(#fff, $lightness: -10%);
+  }
+
+  &:active {
+    background-color: color.scale(#fff, $lightness: -30%);
+  }
+}

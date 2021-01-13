@@ -1,0 +1,51 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/auth
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+  liquibase:
+    change-log: classpath:/db/changelog/changelog-master.xml
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 796214187309-kpall1h7m0hr6elmo492p31kqcgc4mvr.apps.googleusercontent.com
+            client-secret: lUUZeTMrePv5rm7AcgKlmAVu
+security:
+  jwt:
+    key-store: classpath:/keystore/auth_server.keystore
+    key-store-password: 123456789
+    key-pair-alias: auth_server_keystore
+    key-pair-password: 123456789
+
+server:
+  servlet:
+    context-path: /auth
+
+logging:
+  level:
+    root: DEBUG
+custom:
+  cors:
+    allowOrigin: http://localhost:8081
+    allowMethods: GET, POST, PUT, OPTIONS
+    allowHeaders: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With
+    allowCredentials: true
+    maxAge: 3600
+
+server-url: http://my-test-auth-server.herokuapp.com/auth
+
+openid-configuration:
+  authorization_endpoint: ${server-url}/oauth/authorize
+  end_session_endpoint: ${server-url}/logout
+  grant_types_supported: authorization_code
+  issuer: ${server-url}
+  token_endpoint: ${server-url}/oauth/token
+  userinfo_endpoint: ${server-url}/userinfo
+  jwks_uri: ${server-url}/.well-known/jwks.json
+
+

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet id="init-1" author="molostvov">
+        <comment>Создание базы данных public</comment>
+        <sql>
+            CREATE SCHEMA IF NOT EXISTS public;
+        </sql>
+    </changeSet>
+
+    <changeSet id="init-2" author="molostvov">
+        <sql>
+            CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+        </sql>
+    </changeSet>
+
+    <changeSet id="init-3" author="molostvov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists schemaName="public" tableName="users"/>
+            </not>
+        </preConditions>
+        <sql>
+            CREATE TABLE users (
+            id uuid not null default uuid_generate_v4(),
+            username varchar not null,
+            email varchar not null,
+            password varchar,
+            surname varchar,
+            name varchar,
+
+            CONSTRAINT users_pk PRIMARY KEY (id),
+            CONSTRAINT users_unq_username UNIQUE (username),
+            CONSTRAINT users_unq_email UNIQUE (email)
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet id="init-4" author="molostvov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists schemaName="public" tableName="authorities"/>
+            </not>
+            <tableExists tableName="users" schemaName="public"/>
+        </preConditions>
+        <sql>
+            CREATE TABLE authorities (
+            user_id uuid not null,
+            authority varchar not null,
+
+            CONSTRAINT authorities_pk PRIMARY KEY (user_id, authority),
+            CONSTRAINT authorities_fk FOREIGN KEY (user_id) REFERENCES users(id)
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet id="init-5" author="molostvov">
+        <sql>
+            create table oauth_client_details (
+            client_id VARCHAR(255) PRIMARY KEY,
+            resource_ids VARCHAR(255),
+            client_secret VARCHAR(255),
+            scope VARCHAR(255),
+            authorized_grant_types VARCHAR(255),
+            web_server_redirect_uri VARCHAR(255),
+            authorities VARCHAR(255),
+            access_token_validity INTEGER,
+            refresh_token_validity INTEGER,
+            additional_information VARCHAR(4096),
+            autoapprove VARCHAR(255)
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet id="init-6" author="molostvov">
+        <sql>
+            INSERT INTO oauth_client_details
+            (client_id, client_secret, scope, authorized_grant_types,
+            web_server_redirect_uri, authorities, access_token_validity,
+            refresh_token_validity, additional_information, autoapprove)
+            VALUES
+            ('web-client', '$2a$10$/0wwZVQqCWZKva6bC6AKO.FUJh1RoXFueDY9q4y0CS60FTfASc/Dm', 'openid',
+            'authorization_code', 'http://localhost:8081/', null, 36000, 36000, null, true);
+        </sql>
+    </changeSet>
+
+    <changeSet id="init-7" author="molostvov">
+        <sql>
+            INSERT INTO users(
+            username, password, email, surname, name)
+            VALUES ('admin', '$2a$10$TH//YDovv7arAe5boNapd.M5BMcfTsuydAf..qOjgtLV6Q3DTl7XK','email','surname','name');
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>
