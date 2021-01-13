@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -30,11 +31,18 @@ public class UserAuthenticationConfiguration extends WebSecurityConfigurerAdapte
                 .anyRequest()
                 .authenticated()
                 .and()
-                .formLogin().permitAll()
+                .formLogin().loginPage("/login").permitAll()
                 .and()
-                .logout().invalidateHttpSession(true).clearAuthentication(true).deleteCookies("JSESSIONID")
-                .and()
-                .oauth2Login().successHandler(oauth2AuthenticationSuccessHandler);
+                .logout().invalidateHttpSession(true).clearAuthentication(true).deleteCookies("JSESSIONID");
+                /*.and()
+                .oauth2Login().successHandler(oauth2AuthenticationSuccessHandler);*/
+    }
+
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring()
+                .antMatchers("/static/**", "/*.js", "/*.css", "/*.jpg",
+                        "/*.woff", "/*.ico", "/*.eot", "/*.ttf", "/*.svg");
     }
 
     @Override
