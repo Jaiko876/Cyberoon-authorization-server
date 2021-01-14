@@ -22,7 +22,7 @@ public class UserAuthenticationConfiguration extends WebSecurityConfigurerAdapte
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .csrf().ignoringAntMatchers("/logout/**")
+                .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()).ignoringAntMatchers("/logout/**")
                 .and()
                 .requestMatchers()
                 .mvcMatchers("/login/**", "/registration", "/oauth/**", "/oauth2/**")
@@ -41,7 +41,7 @@ public class UserAuthenticationConfiguration extends WebSecurityConfigurerAdapte
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring()
-                .antMatchers("/static/**", "/*.js", "/*.css", "/*.jpg",
+                .antMatchers("/static/**", "/*.js", "/*.*.map", "/*.css", "/*.jpg",
                         "/*.woff", "/*.ico", "/*.eot", "/*.ttf", "/*.svg");
     }
 
