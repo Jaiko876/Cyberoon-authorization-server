@@ -7,7 +7,6 @@ import { LoginComponent } from './login/login.component';
 import { MainRoutingModule } from './main-routing.module';
 import { RegistrationComponent } from './registration/registration.component';
 import { SocialLoginComponent } from './social-login/social-login.component';
-import { TuiInputModule } from '@taiga-ui/kit';
 
 @NgModule({
   declarations: [
@@ -16,11 +15,6 @@ import { TuiInputModule } from '@taiga-ui/kit';
     RegistrationComponent,
     SocialLoginComponent,
   ],
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    MainRoutingModule,
-    TuiInputModule,
-  ],
+  imports: [CommonModule, ReactiveFormsModule, MainRoutingModule],
 })
 export class MainModule {}

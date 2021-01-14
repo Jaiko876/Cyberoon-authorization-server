@@ -1,6 +1,10 @@
 .container {
-  padding: 15px;
+  padding: 48px 30px;
   background-color: rgb(54, 48, 48);
+  -webkit-box-shadow: 5px 3px 20px 2px rgba(54, 48, 48, 0.66);
+  -moz-box-shadow: 5px 3px 20px 2px rgba(54, 48, 48, 0.66);
+  box-shadow: 5px 3px 20px 2px rgba(54, 48, 48, 0.66);
+  border-radius: 4px;
 
   &__tab {
     display: flex;

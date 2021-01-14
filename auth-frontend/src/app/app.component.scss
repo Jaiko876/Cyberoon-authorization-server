@@ -1,12 +1,20 @@
-.container {
+.global-wrapper {
   height: 100%;
+  overflow: auto;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  background-image: url("../assets/a.jpg");
+  // background-image: url("../assets/a.jpg");
 
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+  // background-position: center;
+  // background-repeat: no-repeat;
+  // background-size: cover;
+
+  background: rgba(134, 179, 166, 1);
+  background: linear-gradient(
+    335deg,
+    rgba(134, 179, 166, 1) 0%,
+    rgba(153, 174, 255, 1) 100%
+  );
 }

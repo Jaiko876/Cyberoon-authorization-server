@@ -1,18 +1,16 @@
 <div class="form__container">
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-    <!-- <div class="form__group">
+    <div class="form__group">
       <label class="form__label" for="name">Name or email</label>
       <input
         class="form__input"
-        placeholder="name"
         type="text"
         formControlName="name"
         id="name"
         autofocus
       />
-    </div> -->
-
-    <tui-input formControlName="name"> Name or email </tui-input>
+      <div class="form__error">sample error</div>
+    </div>
 
     <div class="form__group">
       <label class="form__label" for="password">Password</label>
@@ -29,6 +27,6 @@
       <label class="checkbox__label" for="remember-me">Remember me</label>
     </div>
 
-    <button class="button accent-button" type="submit">Submit</button>
+    <button class="button accent-button" type="submit">Login</button>
   </form>
 </div>

@@ -1,10 +1,12 @@
 @use "sass:color";
 
-$input-color-background: #323537;
+$input-color-background: rgb(54, 48, 48);
 $input-color: #dee1e4;
 $input-label-font-size: 0.8rem;
 $input-font-size: 1.2rem;
 $input-font-family: "Ubuntu", sans-serif;
+$input-error-text-color: #d9574a;
+$input-error-text-color2: #8c3f37;
 
 .form {
   &__group {
@@ -27,14 +29,20 @@ $input-font-family: "Ubuntu", sans-serif;
     outline: none;
     background-color: $input-color-background;
     color: $input-color;
-    padding: 5px;
+    padding: 7px;
     font-family: $input-font-family;
     font-size: $input-font-size;
+    border-bottom: 2px solid #fe9a95;
 
     &:active,
     &:focus {
       background-color: color.scale($input-color-background, $lightness: 10%);
     }
+  }
+
+  &__error {
+    color: $input-error-text-color;
+    font-size: 0.8rem;
   }
 }
 

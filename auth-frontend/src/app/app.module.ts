@@ -6,14 +6,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ErrorComponent } from './error/error.component';
 import { LogoutComponent } from './logout/logout.component';
-import { TuiRootModule } from '@taiga-ui/core/components/root';
 
 @NgModule({
   declarations: [AppComponent, ErrorComponent, LogoutComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    TuiRootModule,
     HttpClientModule,
     HttpClientXsrfModule.withOptions(),
   ],

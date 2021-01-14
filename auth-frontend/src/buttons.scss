@@ -1,7 +1,7 @@
 @use "sass:color";
 
-$accent-color1: #e3ee26;
-$accent-color2: #cb11b1;
+$accent-color1: #d9c029;
+$accent-color2: #d955ad;
 $accent-color3: #3fd4d8;
 $accent-color4: #684cbd;
 $accent-color5: #292d45;
@@ -11,6 +11,8 @@ $button-font-size: 1rem;
 
 .button {
   box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
   position: relative;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -29,16 +31,18 @@ $button-font-size: 1rem;
   min-width: 64px;
   line-height: 36px;
   padding: 0 16px;
-  border-radius: 0;
   overflow: visible;
   font-family: $body-font-family;
   font-size: $button-font-size;
+  font-weight: 500;
+  border-radius: 50px;
 }
 
 .accent-button {
-  color: white;
+  color: #ffffff;
   background-color: $accent-color2;
   width: 100%;
+  background-image: linear-gradient(135deg, #ffd3a5 10%, #fd6585 100%);
 
   &:hover {
     background-color: color.scale($accent-color1, $lightness: -10%);
@@ -49,15 +53,14 @@ $button-font-size: 1rem;
   }
 
   &:focus {
-    box-shadow: 1px 2px 50px 13px $accent-color2;
+    outline: 2px solid #fff;
   }
 }
 
 .social-button {
   background-color: #fff;
-  color: black;
-  border: 2px solid black;
   width: 100%;
+  color: black;
 
   &:hover {
     background-color: color.scale(#fff, $lightness: -10%);
@@ -68,7 +71,7 @@ $button-font-size: 1rem;
   }
 
   &:focus {
-    box-shadow: 1px 2px 50px 13px #fff;
+    outline: 2px solid black;
   }
 }
 
