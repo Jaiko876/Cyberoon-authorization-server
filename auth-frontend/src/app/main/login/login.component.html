@@ -1,15 +1,18 @@
 <div class="form__container">
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-    <div class="form__group">
+    <!-- <div class="form__group">
       <label class="form__label" for="name">Name or email</label>
       <input
         class="form__input"
+        placeholder="name"
         type="text"
         formControlName="name"
         id="name"
         autofocus
       />
-    </div>
+    </div> -->
+
+    <tui-input formControlName="name"> Name or email </tui-input>
 
     <div class="form__group">
       <label class="form__label" for="password">Password</label>

@@ -1,7 +1,7 @@
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
-import {Injectable} from '@angular/core';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 
-const apiUrl = 'http://localhost:8080/auth';
+const apiUrl = '//localhost:8080/auth';
 @Injectable({
   providedIn: 'root',
 })
