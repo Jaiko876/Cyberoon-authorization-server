@@ -16,6 +16,18 @@ export class LoginComponent implements OnInit {
     rememberMe: [''],
   });
 
+  get name(): string {
+    return (this.loginForm?.get('name')?.value as string) || '';
+  }
+
+  get password(): string {
+    return (this.loginForm?.get('password')?.value as string) || '';
+  }
+
+  get rememberMe(): boolean {
+    return !!this.loginForm?.get('rememberMe')?.value;
+  }
+
   constructor(private fb: FormBuilder, private authService: AuthService) {}
 
   ngOnInit(): void {}
@@ -23,10 +35,6 @@ export class LoginComponent implements OnInit {
   onSubmit(): void {
     console.log('onSubmit called');
 
-    this.authService.login(
-      this.loginForm.value.name,
-      this.loginForm.value.password,
-      this.loginForm.value.rememberMe
-    );
+    this.authService.login(this.name, this.password, this.rememberMe);
   }
 }

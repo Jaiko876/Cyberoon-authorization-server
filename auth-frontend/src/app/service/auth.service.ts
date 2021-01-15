@@ -8,12 +8,12 @@ const apiUrl = '//localhost:8080/auth';
 export class AuthService {
   constructor(private http: HttpClient) {}
 
-  login(username: string, password: string, rememberMe?: string): void {
+  login(username: string, password: string, rememberMe: boolean): void {
     console.log('login post called');
     const formData = new FormData();
     formData.append('username', username);
     formData.append('password', password);
-    formData.append('remember-me', 'on');
+    formData.append('remember-me', rememberMe ? 'on' : 'off');
 
     this.http
       .post(`${apiUrl}/login`, formData, {

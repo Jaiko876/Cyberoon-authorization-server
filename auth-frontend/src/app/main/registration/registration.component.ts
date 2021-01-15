@@ -23,9 +23,9 @@ export class RegistrationComponent implements OnInit {
   onSubmit(): void {
     console.log('onSubmit called');
 
-    this.authService.login(
-      this.registrationForm.value.name,
-      this.registrationForm.value.password
-    );
+    // this.authService.login(
+    //   this.registrationForm.value.name,
+    //   this.registrationForm.value.password
+    // );
   }
 }
