@@ -30,6 +30,7 @@ $input-error-text-color2: #8c3f37;
     background-color: $input-color-background;
     color: $input-color;
     padding: 7px;
+    margin: 5px 0;
     font-family: $input-font-family;
     font-size: $input-font-size;
     border-bottom: 2px solid #fe9a95;
@@ -37,6 +38,10 @@ $input-error-text-color2: #8c3f37;
     &:active,
     &:focus {
       background-color: color.scale($input-color-background, $lightness: 10%);
+    }
+
+    &.ng-invalid.ng-touched {
+      border-bottom: 2px solid $input-error-text-color;
     }
   }
 

@@ -1,15 +1,16 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder} from '@angular/forms';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
-import {AuthService} from 'src/app/service/auth.service';
+import { AuthService } from 'src/app/service/auth.service';
 
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
   styleUrls: ['./registration.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RegistrationComponent implements OnInit {
-  registrationForm = this.fb.group({
+  readonly registrationForm: FormGroup = this.fb.group({
     name: [''],
     email: [''],
     password: [''],

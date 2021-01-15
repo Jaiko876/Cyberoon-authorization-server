@@ -1,17 +1,18 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder} from '@angular/forms';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import {AuthService} from '../../service/auth.service';
+import { AuthService } from '../../service/auth.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent implements OnInit {
-  loginForm = this.fb.group({
-    name: [''],
-    password: [''],
+  readonly loginForm: FormGroup = this.fb.group({
+    name: ['', Validators.required],
+    password: ['', Validators.required],
   });
 
   constructor(private fb: FormBuilder, private authService: AuthService) {}
