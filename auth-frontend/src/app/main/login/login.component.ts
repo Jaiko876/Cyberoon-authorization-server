@@ -13,6 +13,7 @@ export class LoginComponent implements OnInit {
   readonly loginForm: FormGroup = this.fb.group({
     name: ['', Validators.required],
     password: ['', Validators.required],
+    rememberMe: [''],
   });
 
   constructor(private fb: FormBuilder, private authService: AuthService) {}
@@ -24,7 +25,8 @@ export class LoginComponent implements OnInit {
 
     this.authService.login(
       this.loginForm.value.name,
-      this.loginForm.value.password
+      this.loginForm.value.password,
+      this.loginForm.value.rememberMe
     );
   }
 }
