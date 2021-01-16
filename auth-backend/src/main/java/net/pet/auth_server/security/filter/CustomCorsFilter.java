@@ -1,4 +1,4 @@
-package net.pet.auth_server.security.configuration;
+package net.pet.auth_server.security.filter;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.Ordered;
@@ -43,7 +43,7 @@ public class CustomCorsFilter extends OncePerRequestFilter {
             response.addHeader("Access-Control-Allow-Credentials", allowCredentials);
             response.addHeader("Access-Control-Max-Age", maxAge);
             response.addHeader("Access-Control-Allow-Headers", allowHeaders);
-            response.setStatus(HttpServletResponse.SC_OK);
+            response.setStatus(HttpServletResponse.SC_NO_CONTENT);
         } else {
             filterChain.doFilter(request, response);
         }

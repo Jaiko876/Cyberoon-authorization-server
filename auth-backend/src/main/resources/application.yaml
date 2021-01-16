@@ -33,11 +33,12 @@ custom:
   cors:
     allowOrigin: http://localhost:8081
     allowMethods: GET, POST, PUT, OPTIONS
-    allowHeaders: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With
+    allowHeaders: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With, x-xsrf-token
     allowCredentials: true
     maxAge: 3600
 
-server-url: http://my-test-auth-server.herokuapp.com/auth
+server-url: http://localhost:8080
+client-url: http://localhost:8081
 
 openid-configuration:
   authorization_endpoint: ${server-url}/oauth/authorize

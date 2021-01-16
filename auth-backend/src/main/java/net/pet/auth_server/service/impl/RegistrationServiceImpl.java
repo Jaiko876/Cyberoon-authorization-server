@@ -1,9 +1,10 @@
-package net.pet.auth_server.service;
+package net.pet.auth_server.service.impl;
 
 import net.pet.auth_server.domain.dto.RegistrationModel;
 import net.pet.auth_server.domain.dto.UserModel;
 import net.pet.auth_server.domain.entity.User;
 import net.pet.auth_server.service.api.RegistrationService;
+import net.pet.auth_server.service.api.RegistrationValidator;
 import net.pet.auth_server.service.repository.UserRepository;
 import net.pet.auth_server.service.utils.RegistrationValidatorImpl;
 import net.pet.auth_server.service.utils.mapper.UserMapper;
@@ -16,7 +17,7 @@ public class RegistrationServiceImpl implements RegistrationService {
     private static final UserMapper USER_MAPPER = UserMapper.INSTANCE;
 
     private final UserRepository userRepository;
-    private final RegistrationValidatorImpl validator;
+    private final RegistrationValidator validator;
 
     @Autowired
     public RegistrationServiceImpl(UserRepository userRepository, RegistrationValidatorImpl validator) {
