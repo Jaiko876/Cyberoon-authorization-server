@@ -1,7 +1,21 @@
 <div class="container">
+  <div class="container__logo">
+    <div class="logo"></div>
+  </div>
   <div class="container__tab">
-    <a class="tab-link" [routerLink]="'/login'">Sign in</a>
-    <a class="tab-link" [routerLink]="'/registration'"> Sign up </a>
+    <a
+      class="tab-link"
+      [routerLink]="'/login'"
+      routerLinkActive="tab-link--active"
+      >Sign in</a
+    >
+    <a
+      class="tab-link"
+      [routerLink]="'/registration'"
+      routerLinkActive="tab-link--active"
+    >
+      Sign up
+    </a>
   </div>
 
   <div class="container__panel">

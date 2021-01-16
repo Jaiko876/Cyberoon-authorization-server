@@ -17,15 +17,15 @@ export class LoginComponent implements OnInit {
   });
 
   get name(): string {
-    return (this.loginForm?.get('name')?.value as string) || '';
+    return String(this.loginForm?.get('name')?.value);
   }
 
   get password(): string {
-    return (this.loginForm?.get('password')?.value as string) || '';
+    return String(this.loginForm?.get('password')?.value);
   }
 
   get rememberMe(): boolean {
-    return !!this.loginForm?.get('rememberMe')?.value;
+    return Boolean(this.loginForm?.get('rememberMe')?.value);
   }
 
   constructor(private fb: FormBuilder, private authService: AuthService) {}
@@ -34,6 +34,11 @@ export class LoginComponent implements OnInit {
 
   onSubmit(): void {
     console.log('onSubmit called');
+    // this.loginForm.statusChanges.pipe()
+    this.loginForm.markAllAsTouched();
+    if (!this.loginForm.valid) {
+      return;
+    }
 
     this.authService.login(this.name, this.password, this.rememberMe);
   }

@@ -1,0 +1,18 @@
+<svg width="580" height="190" xmlns="http://www.w3.org/2000/svg" stroke="null" style="vector-effect: non-scaling-stroke;">
+ <!-- Created with Method Draw - http://github.com/duopixel/Method-Draw/ -->
+
+ <g stroke="null">
+  <title stroke="null">background</title>
+  <rect stroke="null" fill="none" id="canvas_background" height="192" width="582" y="-1" x="-1"/>
+  <g stroke="null" style="vector-effect: non-scaling-stroke;" display="none" overflow="visible" y="0" x="0" height="100%" width="100%" id="canvasGrid">
+   <rect fill="url(#gridpattern)" stroke-width="0" y="0" x="0" height="100%" width="100%"/>
+  </g>
+ </g>
+ <g stroke="null">
+  <title stroke="null">Layer 1</title>
+  <ellipse stroke="#ffffff" ry="58" rx="57.99999" id="svg_3" cy="95" cx="461.00002" stroke-width="0" fill="#ffffff"/>
+  <text transform="matrix(1,0,0,1,0,0) matrix(1,0,0,1,0,0) matrix(1,0,0,1,0,0) " stroke="#ffffff" font-style="normal" font-weight="normal" xml:space="preserve" text-anchor="start" font-family="'Plaster'" font-size="76" id="svg_1" y="88" x="159" stroke-width="0" fill="#9eb2ed">yber</text>
+  <text stroke="#ffffff" transform="matrix(1.0234217643737793,0,0,1,-9.077763520181179,0) " font-style="normal" font-weight="normal" xml:space="preserve" text-anchor="start" font-family="'Plaster'" font-size="76" id="svg_7" y="143" x="219" stroke-width="0" fill="#a1cec0">oon</text>
+  <text font-style="normal" font-weight="normal" stroke="#ffffff" transform="matrix(1.248452072938562,0,0,1.1486913718670164,-30.69649101109179,-5.392236708783232) " xml:space="preserve" text-anchor="start" font-family="'Plaster'" font-size="122" id="svg_8" y="129.29433" x="64.43313" stroke-width="0" fill="#9eb2ed">C</text>
+ </g>
+</svg>
