@@ -15,12 +15,12 @@ const routes: Routes = [
     component: LogoutComponent,
   },
   {
-    path: 'error',
+    path: 'exception',
     component: ErrorComponent,
   },
   {
     path: '**',
-    redirectTo: 'error',
+    redirectTo: 'exception',
   },
 ];
 @NgModule({
