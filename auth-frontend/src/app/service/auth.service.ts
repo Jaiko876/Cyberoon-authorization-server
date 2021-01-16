@@ -16,7 +16,7 @@ export class AuthService {
     formData.append('remember-me', rememberMe ? 'on' : 'off');
 
     this.http
-      .post(`${apiUrl}/authenticate`, formData, {
+      .post(`${apiUrl}/login`, formData, {
         observe: 'response' as 'body',
       })
       .subscribe(

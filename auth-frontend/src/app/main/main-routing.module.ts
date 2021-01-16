@@ -12,11 +12,11 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'authenticate',
+        redirectTo: 'login',
         pathMatch: 'full',
       },
       {
-        path: 'authenticate',
+        path: 'login',
         component: LoginComponent,
       },
       {
