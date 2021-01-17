@@ -43,34 +43,21 @@ export class LoginComponent implements OnInit {
     if (!this.loginForm.valid) {
       return;
     }
-    const loginModel = {
-      username: this.name,
-      password: this.password,
-      isRememberMeEnabled: this.rememberMe,
-    };
-    fetch(
-      new Request('//localhost:8080/auth/login', {
-        redirect: 'manual',
-        method: 'POST',
-        body: JSON.stringify(loginModel),
-      })
-    ).then((data) => {
-      console.log(data); // JSON data parsed by `response.json()` call
-    });
-    // this.authService.login(this.name, this.password, this.rememberMe).subscribe(
-    //   (data) => {
-    //     console.log('success');
-    //     console.log(data);
-    //   },
-    //   (err) => {
-    //     if (err.url) {
-    //       console.warn(`REDIRECTING MANUALLY TO ${err.url}`);
 
-    //       window.location.replace(err.url);
-    //     }
-    //     console.log('error');
-    //     console.log(err);
-    //   }
-    // );
+    this.authService.login(this.name, this.password, this.rememberMe).subscribe(
+      (data) => {
+        console.log('success');
+        console.log(data);
+      },
+      (err) => {
+        if (err.url) {
+          console.warn(`REDIRECTING MANUALLY TO ${err.url}`);
+
+          window.location.replace(err.url);
+        }
+        console.log('error');
+        console.log(err);
+      }
+    );
   }
 }
