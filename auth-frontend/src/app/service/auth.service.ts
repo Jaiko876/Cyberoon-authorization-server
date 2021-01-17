@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 
 import { LoginDTO } from './loginDTO.model';
 import { RegisterDTO } from './registerDTO.model';
+import { Observable } from 'rxjs';
 
 const apiUrl = '//localhost:8080/auth';
 @Injectable({
@@ -15,28 +16,12 @@ export class AuthService {
     username: string,
     password: string,
     isRememberMeEnabled: boolean
-  ): void {
+  ): Observable<unknown> {
     const loginModel: LoginDTO = { username, password, isRememberMeEnabled };
 
-    this.http
-      .post(`${apiUrl}/login`, loginModel, {
-        observe: 'response' as 'body',
-      })
-      .subscribe(
-        (data) => {
-          console.log('success');
-          console.log(data);
-        },
-        (err: HttpErrorResponse) => {
-          if (err.url) {
-            console.warn(`REDIRECTING MANUALLY TO ${err.url}`);
-
-            window.location.replace(err.url);
-          }
-          console.log('error');
-          console.log(err);
-        }
-      );
+    return this.http.post(`${apiUrl}/login`, loginModel, {
+      observe: 'response' as 'body',
+    });
   }
 
   register(username: string, email: string, password: string): void {

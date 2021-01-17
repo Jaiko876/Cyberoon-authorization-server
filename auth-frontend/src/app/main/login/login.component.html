@@ -5,7 +5,7 @@
       <input
         class="form__input"
         type="text"
-        formControlName="name"
+        [formControlName]="formControlName.name"
         id="name"
         autofocus
       />
@@ -17,7 +17,7 @@
       <input
         class="form__input"
         type="text"
-        formControlName="password"
+        [formControlName]="formControlName.password"
         type="password"
         id="password"
       />
@@ -28,7 +28,7 @@
         class="checkbox"
         type="checkbox"
         id="remember-me"
-        formControlName="rememberMe"
+        [formControlName]="formControlName.rememberMe"
       />
       <label class="checkbox__label" for="remember-me">Remember me</label>
     </div>

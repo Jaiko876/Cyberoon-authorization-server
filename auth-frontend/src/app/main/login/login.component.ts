@@ -3,6 +3,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { AuthService } from '../../service/auth.service';
 
+enum FormControlName {
+  name = 'name',
+  password = 'password',
+  rememberMe = 'rememberMe',
+}
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -10,22 +15,23 @@ import { AuthService } from '../../service/auth.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent implements OnInit {
+  readonly formControlName = FormControlName;
   readonly loginForm: FormGroup = this.fb.group({
-    name: ['', Validators.required],
-    password: ['', Validators.required],
-    rememberMe: [''],
+    [FormControlName.name]: ['', Validators.required],
+    [FormControlName.password]: ['', Validators.required],
+    [FormControlName.rememberMe]: [''],
   });
 
   get name(): string {
-    return String(this.loginForm?.get('name')?.value);
+    return String(this.loginForm?.get(FormControlName.name)?.value);
   }
 
   get password(): string {
-    return String(this.loginForm?.get('password')?.value);
+    return String(this.loginForm?.get(FormControlName.password)?.value);
   }
 
   get rememberMe(): boolean {
-    return Boolean(this.loginForm?.get('rememberMe')?.value);
+    return Boolean(this.loginForm?.get(FormControlName.rememberMe)?.value);
   }
 
   constructor(private fb: FormBuilder, private authService: AuthService) {}
@@ -33,13 +39,38 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {}
 
   onSubmit(): void {
-    console.log('onSubmit called');
-    // this.loginForm.statusChanges.pipe()
     this.loginForm.markAllAsTouched();
     if (!this.loginForm.valid) {
       return;
     }
+    const loginModel = {
+      username: this.name,
+      password: this.password,
+      isRememberMeEnabled: this.rememberMe,
+    };
+    fetch(
+      new Request('//localhost:8080/auth/login', {
+        redirect: 'manual',
+        method: 'POST',
+        body: JSON.stringify(loginModel),
+      })
+    ).then((data) => {
+      console.log(data); // JSON data parsed by `response.json()` call
+    });
+    // this.authService.login(this.name, this.password, this.rememberMe).subscribe(
+    //   (data) => {
+    //     console.log('success');
+    //     console.log(data);
+    //   },
+    //   (err) => {
+    //     if (err.url) {
+    //       console.warn(`REDIRECTING MANUALLY TO ${err.url}`);
 
-    this.authService.login(this.name, this.password, this.rememberMe);
+    //       window.location.replace(err.url);
+    //     }
+    //     console.log('error');
+    //     console.log(err);
+    //   }
+    // );
   }
 }

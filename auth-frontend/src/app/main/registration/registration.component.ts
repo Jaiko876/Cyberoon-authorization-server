@@ -3,6 +3,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { AuthService } from 'src/app/service/auth.service';
 
+enum FormControlName {
+  name = 'name',
+  email = 'email',
+  password = 'password',
+  confirmPassword = 'confirmPassword',
+}
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
@@ -11,22 +17,22 @@ import { AuthService } from 'src/app/service/auth.service';
 })
 export class RegistrationComponent implements OnInit {
   readonly registrationForm: FormGroup = this.fb.group({
-    name: ['', Validators.required],
-    email: ['', Validators.required],
-    password: ['', Validators.required],
-    confirmPassword: ['', Validators.required],
+    [FormControlName.name]: ['', Validators.required],
+    [FormControlName.email]: ['', Validators.required],
+    [FormControlName.password]: ['', Validators.required],
+    [FormControlName.confirmPassword]: ['', Validators.required],
   });
 
   get name(): string {
-    return String(this.registrationForm?.get('name')?.value);
+    return String(this.registrationForm?.get(FormControlName.name)?.value);
   }
 
   get password(): string {
-    return String(this.registrationForm?.get('password')?.value);
+    return String(this.registrationForm?.get(FormControlName.password)?.value);
   }
 
   get email(): string {
-    return String(this.registrationForm?.get('email')?.value);
+    return String(this.registrationForm?.get(FormControlName.email)?.value);
   }
 
   constructor(private fb: FormBuilder, private authService: AuthService) {}
