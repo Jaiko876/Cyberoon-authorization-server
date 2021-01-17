@@ -39,10 +39,13 @@ $button-font-size: 1rem;
 }
 
 .accent-button {
+  $color1: #eca5ff;
+  $color2: #fd6585;
+
   color: #ffffff;
-  background-color: $accent-color2;
+  background-color: $color1;
   width: 100%;
-  background-image: linear-gradient(135deg, #ffd3a5 10%, #fd6585 100%);
+  background-image: linear-gradient(135deg, $color1 10%, $color2 100%);
   box-shadow: 0px 4px 0px 0px #ca6d72;
   transition: all 0.1s linear;
 
@@ -56,18 +59,18 @@ $button-font-size: 1rem;
   &:active {
     background-image: linear-gradient(
       135deg,
-      color.scale(#ffd3a5, $lightness: 20%) 10%,
-      color.scale(#fd6585, $lightness: 20%) 100%
+      color.scale($color1, $lightness: 20%) 10%,
+      color.scale($color2, $lightness: 20%) 100%
     );
-    background-color: color.scale($accent-color1, $lightness: -30%);
+    background-color: color.scale($color1, $lightness: -30%);
   }
 
   &:focus {
-    background-color: color.scale(#ffd3a5, $lightness: -10%);
+    background-color: color.scale($color1, $lightness: -10%);
     background-image: linear-gradient(
       135deg,
-      color.scale(#ffd3a5, $lightness: 20%) 10%,
-      color.scale(#fd6585, $lightness: 20%) 100%
+      color.scale($color1, $lightness: 20%) 10%,
+      color.scale($color2, $lightness: 20%) 100%
     );
   }
 }

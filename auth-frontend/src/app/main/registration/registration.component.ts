@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { AuthService } from 'src/app/service/auth.service';
 
@@ -11,21 +11,29 @@ import { AuthService } from 'src/app/service/auth.service';
 })
 export class RegistrationComponent implements OnInit {
   readonly registrationForm: FormGroup = this.fb.group({
-    name: [''],
-    email: [''],
-    password: [''],
+    name: ['', Validators.required],
+    email: ['', Validators.required],
+    password: ['', Validators.required],
+    confirmPassword: ['', Validators.required],
   });
+
+  get name(): string {
+    return String(this.registrationForm?.get('name')?.value);
+  }
+
+  get password(): string {
+    return String(this.registrationForm?.get('password')?.value);
+  }
+
+  get email(): string {
+    return String(this.registrationForm?.get('email')?.value);
+  }
 
   constructor(private fb: FormBuilder, private authService: AuthService) {}
 
   ngOnInit(): void {}
 
   onSubmit(): void {
-    console.log('onSubmit called');
-
-    // this.authService.login(
-    //   this.registrationForm.value.name,
-    //   this.registrationForm.value.password
-    // );
+    this.authService.register(this.name, this.email, this.password);
   }
 }
