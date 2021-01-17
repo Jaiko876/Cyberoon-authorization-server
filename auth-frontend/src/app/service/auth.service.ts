@@ -37,11 +37,11 @@ export class AuthService {
           console.log(data);
         },
         (err: HttpErrorResponse) => {
-          // if (err.url) {
-          //   console.warn(`REDIRECTING MANUALLY TO ${err.url}`);
+          if (err.url) {
+            console.warn(`REDIRECTING MANUALLY TO ${err.url}`);
 
-          //   window.location.replace(err.url);
-          // }
+            window.location.replace(err.url);
+          }
           console.log('error');
           console.log(err);
         }

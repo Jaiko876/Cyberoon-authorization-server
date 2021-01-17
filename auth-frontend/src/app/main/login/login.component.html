@@ -9,7 +9,18 @@
         id="name"
         autofocus
       />
-      <div class="form__error">sample error</div>
+      <div
+        *ngIf="
+          loginForm.controls[formControlName.name].invalid &&
+          (loginForm.controls[formControlName.name].dirty ||
+            loginForm.controls[formControlName.name].touched)
+        "
+        class="form__error"
+      >
+        <div *ngIf="loginForm.controls[formControlName.name].errors?.required">
+          Name is required.
+        </div>
+      </div>
     </div>
 
     <div class="form__group">
