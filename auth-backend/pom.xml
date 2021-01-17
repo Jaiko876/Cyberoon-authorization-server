@@ -15,6 +15,7 @@
 
     <properties>
         <java.version>11</java.version>
+        <lettuce.version>5.2.2.RELEASE</lettuce.version>
     </properties>
 
     <dependencies>
