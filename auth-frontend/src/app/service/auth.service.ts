@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { LoginDTO } from './loginDTO.model';
-import { RegisterDTO } from './registerDTO.model';
+import { RegistrationDTO as registrationDTO } from './registrationDTO.model';
 import { Observable } from 'rxjs';
 
 const apiUrl = '//localhost:8080/auth';
@@ -24,11 +24,11 @@ export class AuthService {
     });
   }
 
-  register(username: string, email: string, password: string): void {
-    const registerModel: RegisterDTO = { username, email, password };
+  registration(username: string, email: string, password: string): void {
+    const registrationModel: registrationDTO = { username, email, password };
 
     this.http
-      .post(`${apiUrl}/register`, registerModel, {
+      .post(`${apiUrl}/registration`, registrationModel, {
         observe: 'response' as 'body',
       })
       .subscribe(

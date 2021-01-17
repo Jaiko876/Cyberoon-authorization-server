@@ -40,6 +40,6 @@ export class RegistrationComponent implements OnInit {
   ngOnInit(): void {}
 
   onSubmit(): void {
-    this.authService.register(this.name, this.email, this.password);
+    this.authService.registration(this.name, this.email, this.password);
   }
 }
