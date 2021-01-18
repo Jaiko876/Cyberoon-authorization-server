@@ -1,7 +1,12 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
+import { catchError } from 'rxjs/operators';
+
 import { AuthService } from '../../service/auth.service';
+import { BehaviorSubject, of, ReplaySubject } from 'rxjs';
+import { ValidationErrors } from 'src/app/service/validationErrors.model';
 
 enum FormControlName {
   name = 'name',
@@ -21,6 +26,8 @@ export class LoginComponent implements OnInit {
     [FormControlName.password]: ['', Validators.required],
     [FormControlName.rememberMe]: [''],
   });
+  readonly validationMessage$ = new ReplaySubject<string>(1);
+  readonly showResult$ = new BehaviorSubject<boolean>(false);
 
   get name(): string {
     return String(this.loginForm?.get(FormControlName.name)?.value);
@@ -43,21 +50,25 @@ export class LoginComponent implements OnInit {
     if (!this.loginForm.valid) {
       return;
     }
+    this.showResult$.next(true);
+    this.validationMessage$.next('');
 
-    this.authService.login(this.name, this.password, this.rememberMe).subscribe(
-      (data) => {
-        console.log('success');
-        console.log(data);
-      },
-      (err) => {
-        if (err.url) {
-          console.warn(`REDIRECTING MANUALLY TO ${err.url}`);
+    this.authService
+      .login(this.name, this.password, this.rememberMe)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          if (error?.error?.code) {
+            this.validationMessage$.next(ValidationErrors[error.error.code]);
+          }
+          if (error.url?.includes('?code=')) {
+            console.warn(`REDIRECTING MANUALLY TO ${error.url}`);
 
-          window.location.replace(err.url);
-        }
-        console.log('error');
-        console.log(err);
-      }
-    );
+            window.location.replace(error.url);
+          }
+          this.validationMessage$.next(error.message);
+          return of();
+        })
+      )
+      .subscribe();
   }
 }

@@ -1,5 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
   selector: 'app-main',
@@ -7,12 +6,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./main.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MainComponent implements OnInit {
-  constructor(private router: Router) {}
-
-  ngOnInit(): void {}
-
-  onclick(): void {
-    this.router.navigate(['/', 'registration']);
-  }
+export class MainComponent {
+  constructor() {}
 }

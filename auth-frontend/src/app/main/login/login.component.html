@@ -9,16 +9,20 @@
         id="name"
         autofocus
       />
-      <div
-        *ngIf="
-          loginForm.controls[formControlName.name].invalid &&
-          (loginForm.controls[formControlName.name].dirty ||
-            loginForm.controls[formControlName.name].touched)
-        "
-        class="form__error"
-      >
-        <div *ngIf="loginForm.controls[formControlName.name].errors?.required">
-          Name is required.
+      <div class="form__error-container">
+        <div
+          *ngIf="
+            loginForm.controls[formControlName.name].invalid &&
+            (loginForm.controls[formControlName.name].dirty ||
+              loginForm.controls[formControlName.name].touched)
+          "
+          class="form__error"
+        >
+          <div
+            *ngIf="loginForm.controls[formControlName.name].errors?.required"
+          >
+            Name is required.
+          </div>
         </div>
       </div>
     </div>
@@ -32,7 +36,24 @@
         type="password"
         id="password"
       />
-      <div class="form__error">sample error</div>
+      <div class="form__error-container">
+        <div
+          *ngIf="
+            loginForm.controls[formControlName.password].invalid &&
+            (loginForm.controls[formControlName.password].dirty ||
+              loginForm.controls[formControlName.password].touched)
+          "
+          class="form__error"
+        >
+          <div
+            *ngIf="
+              loginForm.controls[formControlName.password].errors?.required
+            "
+          >
+            Password is required.
+          </div>
+        </div>
+      </div>
     </div>
     <div class="form__remember-me">
       <input
@@ -43,6 +64,14 @@
       />
       <label class="checkbox__label" for="remember-me">Remember me</label>
     </div>
+
+    <ng-container *ngIf="showResult$ | async">
+      <ng-container
+        *ngIf="validationMessage$ | async as message; else loading"
+        >{{ message }}</ng-container
+      >
+      <ng-template #loading>loading</ng-template>
+    </ng-container>
     <button class="button accent-button" type="submit">Login</button>
   </form>
 </div>

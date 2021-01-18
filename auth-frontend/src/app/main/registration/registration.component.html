@@ -9,6 +9,24 @@
         id="name"
         autofocus
       />
+      <div class="form__error-container">
+        <div
+          *ngIf="
+            registrationForm.controls[formControlName.name].invalid &&
+            (registrationForm.controls[formControlName.name].dirty ||
+              registrationForm.controls[formControlName.name].touched)
+          "
+          class="form__error"
+        >
+          <div
+            *ngIf="
+              registrationForm.controls[formControlName.name].errors?.required
+            "
+          >
+            Name is required.
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="form__group">
@@ -19,6 +37,31 @@
         formControlName="email"
         id="email"
       />
+      <div class="form__error-container">
+        <div
+          *ngIf="
+            registrationForm.controls[formControlName.email].invalid &&
+            (registrationForm.controls[formControlName.email].dirty ||
+              registrationForm.controls[formControlName.email].touched)
+          "
+          class="form__error"
+        >
+          <div
+            *ngIf="
+              registrationForm.controls[formControlName.email].errors?.required
+            "
+          >
+            email is required.
+          </div>
+          <div
+            *ngIf="
+              registrationForm.controls[formControlName.email].errors?.email
+            "
+          >
+            email is not correct
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="form__group">
@@ -30,6 +73,25 @@
         type="password"
         id="password"
       />
+      <div class="form__error-container">
+        <div
+          *ngIf="
+            registrationForm.controls[formControlName.password].invalid &&
+            (registrationForm.controls[formControlName.password].dirty ||
+              registrationForm.controls[formControlName.password].touched)
+          "
+          class="form__error"
+        >
+          <div
+            *ngIf="
+              registrationForm.controls[formControlName.password].errors
+                ?.required
+            "
+          >
+            Password is required.
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="form__group">
@@ -41,7 +103,36 @@
         type="password"
         id="confirmPassword"
       />
+      <div class="form__error-container">
+        <div
+          *ngIf="
+            registrationForm.controls[formControlName.confirmPassword]
+              .invalid &&
+            (registrationForm.controls[formControlName.confirmPassword].dirty ||
+              registrationForm.controls[formControlName.confirmPassword]
+                .touched)
+          "
+          class="form__error"
+        >
+          <div
+            *ngIf="
+              registrationForm.controls[formControlName.confirmPassword].errors
+                ?.required
+            "
+          >
+            confirmPassword is required.
+          </div>
+        </div>
+      </div>
     </div>
+
+    <ng-container *ngIf="showResult$ | async">
+      <ng-container
+        *ngIf="validationMessage$ | async as message; else loading"
+        >{{ message }}</ng-container
+      >
+      <ng-template #loading>loading</ng-template>
+    </ng-container>
 
     <button class="button accent-button" type="submit">Register</button>
   </form>

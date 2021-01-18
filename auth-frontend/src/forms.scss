@@ -45,7 +45,13 @@ $input-error-text-color2: #8c3f37;
     }
   }
 
+  &__error-container {
+    height: 1rem;
+  }
+
   &__error {
+    height: 1rem;
+    overflow: hidden;
     color: $input-error-text-color;
     font-size: 0.8rem;
   }
