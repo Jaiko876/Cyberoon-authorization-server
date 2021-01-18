@@ -9,13 +9,18 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import javax.servlet.http.HttpServletRequest;
-
 @ControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(value = { BadCredentialsException.class })
-    protected ResponseEntity<ErrorModel> handleUnknownException(BadCredentialsException ex, HttpServletRequest  request) {
+    protected ResponseEntity<ErrorModel> handleBadCredentials() {
         return new ResponseEntity<>(new ErrorModel(ErrorCode.BAD_CREDENTIALS), HttpStatus.FORBIDDEN);
+    }
+
+    @ExceptionHandler(value = { IllegalArgumentException.class })
+    protected ResponseEntity<ErrorModel> handle(IllegalArgumentException ex) {
+        if (ex == null)
+            throw new RuntimeException();
+        return new ResponseEntity<>(new ErrorModel(ErrorCode.valueOf(ex.getMessage())), HttpStatus.BAD_REQUEST);
     }
 }

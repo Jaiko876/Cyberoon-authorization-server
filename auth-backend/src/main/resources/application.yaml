@@ -37,8 +37,8 @@ custom:
     allowCredentials: true
     maxAge: 3600
 
-server-url: http://localhost:8080
-client-url: http://localhost:8081
+server-url: http://localhost:8080/
+client-url: http://localhost:8081/
 
 openid-configuration:
   authorization_endpoint: ${server-url}/oauth/authorize
@@ -48,5 +48,4 @@ openid-configuration:
   token_endpoint: ${server-url}/oauth/token
   userinfo_endpoint: ${server-url}/userinfo
   jwks_uri: ${server-url}/.well-known/jwks.json
-
 

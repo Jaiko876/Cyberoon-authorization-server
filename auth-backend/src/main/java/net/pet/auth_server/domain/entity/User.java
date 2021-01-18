@@ -2,6 +2,7 @@ package net.pet.auth_server.domain.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -17,6 +18,10 @@ import java.util.UUID;
 public class User implements UserDetails {
 
     @Id
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+            name = "UUID",
+            strategy = "org.hibernate.id.UUIDGenerator")
     @Column(name = "id", unique = true, nullable = false)
     private UUID id;
 

@@ -1,9 +1,7 @@
 package net.pet.auth_server.security.configuration;
 
 import net.pet.auth_server.security.handler.Oauth2AuthenticationSuccessHandler;
-import net.pet.auth_server.security.handler.UsernamePasswordAuthenticationSuccessHandler;
 import net.pet.auth_server.service.AuthOidcUserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -28,20 +26,11 @@ import javax.servlet.http.HttpServletResponse;
 public class UserAuthenticationConfiguration extends WebSecurityConfigurerAdapter {
 
 
-    private final Oauth2AuthenticationSuccessHandler oauth2AuthenticationSuccessHandler;
-    private final UsernamePasswordAuthenticationSuccessHandler usernamePasswordAuthenticationSuccessHandler;
-
-
-    @Autowired
-    public UserAuthenticationConfiguration(Oauth2AuthenticationSuccessHandler oauth2AuthenticationSuccessHandler, UsernamePasswordAuthenticationSuccessHandler usernamePasswordAuthenticationSuccessHandler) {
-        this.oauth2AuthenticationSuccessHandler = oauth2AuthenticationSuccessHandler;
-        this.usernamePasswordAuthenticationSuccessHandler = usernamePasswordAuthenticationSuccessHandler;
-    }
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .csrf().disable()
+                .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()).ignoringAntMatchers("/logout/**")
+                .and()
                 .requestMatchers()
                 .mvcMatchers("/login/**", "/registration", "/exception", "/oauth/**", "/oauth2/**")
                 .and()
@@ -50,10 +39,10 @@ public class UserAuthenticationConfiguration extends WebSecurityConfigurerAdapte
                 .anyRequest()
                 .authenticated()
                 .and()
-                .logout().invalidateHttpSession(true).deleteCookies("JSESSIONID").clearAuthentication(true).logoutSuccessHandler((request, response, authentication) -> {
+                .logout().logoutUrl("/logout").logoutSuccessUrl("/logout").invalidateHttpSession(true).deleteCookies("JSESSIONID").clearAuthentication(true).logoutSuccessHandler((request, response, authentication) -> {
                      response.setStatus(HttpServletResponse.SC_OK);})
                 .and()
-                .oauth2Login().loginPage("/login").successHandler(oauth2AuthenticationSuccessHandler)
+                .oauth2Login().loginPage("/login").successHandler(oauth2AuthenticationSuccessHandler())
                 .userInfoEndpoint().oidcUserService(new AuthOidcUserService());
     }
 
@@ -88,5 +77,9 @@ public class UserAuthenticationConfiguration extends WebSecurityConfigurerAdapte
     @Bean
     public HttpSessionRequestCache httpSessionRequestCache() {
         return new HttpSessionRequestCache();
+    }
+
+    @Bean Oauth2AuthenticationSuccessHandler oauth2AuthenticationSuccessHandler() {
+        return new Oauth2AuthenticationSuccessHandler();
     }
 }
